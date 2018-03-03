@@ -2,6 +2,17 @@
 
 include 'connect.php';
 
+
+$sql = "
+SELECT
+     id_fakultas,
+     nama_fakultas
+FROM
+     fakultas
+ORDER BY nama_fakultas
+";
+$getComboFakultas = mysqli_query($conn, $sql) or die ('Query Gagal');
+
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +40,9 @@ include 'connect.php';
 
 <body class="login" style="margin-top: -20px;">
 
+    <?php
+        $result = mysqli_query($conn, "SELECT * FROM fakultas");
+    ?>
 
 
     <div class="login_wrapper">
@@ -42,6 +56,25 @@ include 'connect.php';
                     </div>
                     <div>
                         <input type="text" class="form-control" placeholder="Nama Lengkap" name="nama" required=""/>
+                    </div>
+
+                    <div>
+                        <select class="form-control" name="cmbFakultas" id="cmbFakultas">
+                        <option value="">--Pilih Fakultas--</option>
+                        <?php
+                                   while($data = mysqli_fetch_array($getComboFakultas)){
+                                        echo '<option value="'.$data['id_fakultas'].'">'.$data['nama_fakultas'].'</option>';
+                                   }
+                              ?>
+                        </select>
+
+                    </div>
+
+                    <div>
+                        <select class="form-control" name="cmbJurusan" id="cmbJurusan" width="300">
+                        <option value="">--Pilih Jurusan--</option>
+                        </select>
+
                     </div>
 
                     <div>
@@ -62,7 +95,7 @@ include 'connect.php';
 
             if(isset($_POST["submit1"]))
             {
-                    mysqli_query($conn, "INSERT INTO mahasiswa VALUES('$_POST[nim]','$_POST[nama]','$_POST[username]','$_POST[password]')");
+                    mysqli_query($conn, "INSERT INTO mahasiswa VALUES('$_POST[nim]','$_POST[nama]','$_POST[cmbFakultas]','$_POST[cmbJurusan]','$_POST[username]','$_POST[password]','no')");
 
 
                     ?>
@@ -78,11 +111,42 @@ include 'connect.php';
 
             ?>
 
-
-
     </div>
 
-    
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+             $("#cmbFakultas").change(function(){
+                  
+                  var id_fakultas = $(this).val();
+         
+                  $.ajax({
+                     type: "POST",
+                     dataType: "html",
+                     url: "getJurusan.php",
+                     data: "id_fakultas="+id_fakultas,
+                     success: function(msg){
+                         if(msg == ''){
+                                 $("select#cmbJurusan").html('<option value="">--Pilih Jurusan--</option>');
+                                 //$("select#cmbKota").html('<option value="">--Pilih Kota--</option>');
+                         }else{
+                                   $("select#cmbJurusan").html(msg);                                                       
+                         }
+                         $("img#imgLoad").hide();
+         
+                         getAjaxAlamat();                                                        
+                     }
+                  });                    
+             });
+         
+                
+        });
+    </script>
+
 
 </body>
 </html>
+
+
+

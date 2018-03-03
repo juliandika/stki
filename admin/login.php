@@ -94,7 +94,7 @@ if(isset($_POST["submit1"]))
 
         <script type="text/javascript">
             
-            window.location="aa.php";
+            window.location="view_mhs.php";
         </script>
 
         <?php

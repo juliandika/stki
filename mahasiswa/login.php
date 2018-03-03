@@ -75,7 +75,7 @@ if(isset($_POST["submit1"]))
 {
 
     $count = 0;
-    $result = mysqli_query($conn, "SELECT * FROM mahasiswa WHERE username='$_POST[username]' && password='$_POST[password]'");
+    $result = mysqli_query($conn, "SELECT * FROM mahasiswa WHERE username='$_POST[username]' && password='$_POST[password]' && status='yes'");
 
     $count = mysqli_num_rows($result);
 
@@ -104,11 +104,6 @@ if(isset($_POST["submit1"]))
 }
 
 ?>
-
-
-<div class="alert alert-danger col-lg-6 col-lg-push-3">
-    <strong style="color:white">Invalid</strong> Username Or Password.
-</div>
 
 
 </body>
