@@ -11,7 +11,6 @@ FROM
      fakultas
 ORDER BY nama_fakultas
 ";
-
 $getComboFakultas = mysqli_query($conn, $sql) or die ('Query Gagal');
 
 ?>
@@ -90,15 +89,11 @@ $getComboFakultas = mysqli_query($conn, $sql) or die ('Query Gagal');
 
             $str = "1234567890";
 
-            $defaultPass = md5($str);
-
-
-
-            $pass = md5($defaultPass);
+            $pass = md5($str);
 
             if(isset($_POST["submit1"]))
             {
-                    mysqli_query($conn, "INSERT INTO mahasiswa VALUES('$_POST[nim]','$_POST[nama]','$_POST[cmbFakultas]','$_POST[cmbJurusan]','$_POST[nim]','$defaultPass','no')");
+                    mysqli_query($conn, "INSERT INTO mahasiswa VALUES('$_POST[nim]','$_POST[nama]','$_POST[cmbFakultas]','$_POST[cmbJurusan]','$_POST[nim]','$pass','no')");
 
 
                     ?>

@@ -1,6 +1,6 @@
 <?php
 
-include 'connect.php';
+include_once 'connect.php';
 
 ?>
 
@@ -46,7 +46,7 @@ include 'connect.php';
             </div>
             <div>
 
-                <input class="btn btn-default submit" type="submit" name="submit1" value="Login">
+                <input class="btn btn-default submit" type="submit" name="submit" value="Login">
                 <a class="reset_pass" href="#">Lost your password?</a>
             </div>
 
@@ -71,34 +71,36 @@ include 'connect.php';
 
 <?php
 
-if(isset($_POST["submit1"]))
+include_once 'connect.php';
+
+if(isset($_POST['username']) && isset($_POST['password']))
 {
 
-    $count = 0;
-    $result = mysqli_query($conn, "SELECT * FROM mahasiswa WHERE username='$_POST[username]' && password='$_POST[password]' && status='yes'");
+    $username = $_POST['username'];
+    $password = md5($_POST['password']);
 
-    $count = mysqli_num_rows($result);
+    $sql = "SELECT * FROM mahasiswa WHERE username='$username' AND password='$password'";
 
-    if($count == 0){
+    $result = $conn->query($sql);
+
+    $row = $result->fetch_assoc();
+    $user = $row['username'];
+    $pass = $row['password'];
+    $nim = $row['nim'];
+    $nama = $row['nama'];
+
+    if($username==$user && $password==$pass){
+
+        session_start();
+        $_SESSION['username'] = $user;
+        $_SESSION['nama'] = $nama;
+        $_SESSION['nim'] = $nim;
 
         ?>
 
-    <div class="alert alert-danger col-lg-6 col-lg-push-3">
-        <strong style="color:white">Invalid</strong> Username Or Password.
-    </div>
-
+        <script>window.location.href='dashboard.php'</script>
         <?php
 
-    }else{
-
-        ?>
-
-        <script type="text/javascript">
-            
-            window.location="aa.php";
-        </script>
-
-        <?php
 
     }
 }
