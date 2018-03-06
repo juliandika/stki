@@ -44,9 +44,11 @@ include "header.php";
                                 ?>
 
                                 <form enctype="multipart/form-data" method="POST" action="upload_dokumen.php">
-                                File yang di upload : <input type="file" name="fupload"><br>
-                                Deskripsi File : <br>
-
+                                Cover : <input type="file" name="cover"><br>
+                                <br>
+                                <br>
+                                Lembar Pengesahan : <input type="file" name="pengesahan"><br>
+                                
                                 <input type=submit value=Upload>
                                 </form>
 

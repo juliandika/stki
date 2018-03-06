@@ -2,6 +2,7 @@
 
 
 include "connect.php";
+include "toIndex.php";
 
 session_start();
 
@@ -14,22 +15,38 @@ if(!isset($_SESSION['username'])){
 
 <?php
 
-$nim = $_SESSION['nim'];
+	$nim = $_SESSION['nim'];
 
-$lokasi_file = $_FILES['fupload']['tmp_name'];
-$nama_file   = md5($_FILES['fupload']['name']);
+	$lokasi_file_cover = $_FILES['cover']['tmp_name'];
+	$nama_file_cover   = ($_FILES['cover']['name']);
 
-$folder = "fileupload/$nama_file";
+	$lokasi_file_pengesahan = $_FILES['pengesahan']['tmp_name'];
+	$nama_file_pengesahan  = ($_FILES['pengesahan']['name']);
 
-if (move_uploaded_file($lokasi_file,"$folder")){
-  echo "Nama File : <b>$nama_file</b> sukses di upload";
+	$folder1 = "fileupload/$nama_file_cover";
+	$folder2 = "fileupload/$nama_file_pengesahan";
 
-  $query = "INSERT INTO dokumen (nim, nama_file)
-            VALUES('$nim', '$nama_file')";
-            
-  mysqli_query($conn, $query);
-}
-else{
-  echo "File gagal di upload";
-}
+
+	if(move_uploaded_file($lokasi_file_cover,"$folder1")){
+
+	  $query = "INSERT INTO documents (nim, id_label, nama_file)
+	            VALUES('$nim', 1, '$nama_file_cover')";
+	            
+	  mysqli_query($conn, $query);
+
+	  toIndex($nama_file_cover);
+	}
+
+	if(move_uploaded_file($lokasi_file_pengesahan,"$folder2")){
+
+	  $query = "INSERT INTO documents (nim, id_label, nama_file)
+	            VALUES('$nim', 2, '$nama_file_pengesahan')";
+	            
+	  mysqli_query($conn, $query);
+
+	  toIndex($nama_file_pengesahan);
+
+
+	}
+
 ?>
