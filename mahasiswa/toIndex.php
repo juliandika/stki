@@ -1,22 +1,18 @@
 <?php
 
 include ('PdfToText.phpclass');
-
-
-
-function toIndex($file){
-
 include 'connect.php';
 
-    echo $file;
+function toIndex($nama_file_cover){
 
-	$targetfile = "fileupload/" . $file;
+    include 'connect.php';
+    //include ('PdfToText.phpclass');
 
-    //$targetfolder = $targetfolder . basename( $_FILES['file']['name']) ;
+    $file = $nama_file_cover;
 
-	//$string = (string) new PdfToText ("uploads/" . basename( $_FILES['file']['name'])) ;
+    echo $file . "jkajsa";
 
-	$string = (string) new PdfToText ($targetfile) ;
+	$string = (string) new PdfToText ("fileupload/" . $file);
 
     //$nama_file = basename( $_FILES['file']['name']);
 
@@ -58,22 +54,27 @@ include 'connect.php';
     }
 
 
-    $filteredarray = array_diff($teks6,$stopword);
+    $filter = array_diff($teks6,$stopword);
 
-    $teks7 = implode(" ",$filteredarray);
+    $teks7 = implode(" ",$filter);
+
+    print_r($filter);
 
     echo $teks7;
 
-    foreach($filteredarray as $filteredarray){
- 
-        /*if (strlen($filteredarray) >=2)
-        {*/
+    for($i=0; $i<count($filter); $i++){
 
-            $insert = "INSERT INTO dokumen (nama_file, tokenstem) VALUES('$file', '$filteredarray')";
+        if(!empty($filter[$i]) && strlen($filter[$i]) > 2){
 
-            $conn->query($insert); 
-               
-              //}
+            echo $filter[$i]. "<br>";
+
+            mysqli_query($conn, "INSERT INTO dok8 (nama_file, tokenstem) VALUES('".$file."', '".$filter[$i]."')");
+
+            //mysqli_query($conn, "INSERT INTO dok_copy (nama_file, tokenstem) VALUES('daddsd', 'fsds')");
+
+        }
+
+              
     }
 
 }

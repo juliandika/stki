@@ -3,6 +3,10 @@
 include "header.php";
 
 
+include 'connect.php';
+include 'paging.php';
+
+
 ?>
 
         <!-- page content area main -->
@@ -44,6 +48,35 @@ include "header.php";
                                           </span>
                                     </div>
                                 </form>
+
+                                <?php
+                                    /*$result = mysqli_query($conn, "SELECT DISTINCT judul, nama, nama_jurusan, label, semua.doc AS nama_doc, nilai FROM semua INNER JOIN tbcache ON semua.doc = tbcache.docid ORDER BY nilai DESC");*/
+
+                                    echo "<table>";
+                                    echo "<tr>";
+                                    echo "<th>"; echo "Judul"; echo "</th>";
+                                    echo "<th>"; echo "Nama Jurusan"; echo "</th>";
+                                    echo "<th>"; echo "Label"; echo "</th>";
+                                    echo "<th>"; echo "Nama Dokumen"; echo "</th>";
+                                    echo "<th>"; echo "Sim"; echo "</th>";
+                                    echo "</tr>";
+
+                                    while($row = mysqli_fetch_array($result)){
+
+                                        echo "<tr>";
+                                        echo "<td>"; echo $row["judul"]; echo "</td>";
+                                        echo "<td>"; echo $row["nama_jurusan"]; echo "</td>";
+                                        echo "<td>"; echo $row["label"]; echo "</td>";
+                                        echo "<td>"; echo $row["nama_doc"]; echo "</td>";
+                                        echo "<td>"; echo $row["nilai"]; echo "</td>";
+                                        echo "</tr>";
+
+                                    }
+                                    echo "</table>";
+
+                                ?>
+
+                                <div id="pagination_controls"><?php echo $paginationCtrls; ?></div>
 
                             </div>
                         </div>

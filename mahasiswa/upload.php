@@ -3,7 +3,6 @@
 include "header.php";
 
 ?>
-
         <!-- page content area main -->
         <div class="right_col" role="main">
             <div class="">
@@ -29,25 +28,59 @@ include "header.php";
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Plain Page</h2>
 
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
 
-                                <?php
-
-                                echo $_SESSION['nama'];
-                                echo $_SESSION['nim'];
-
-
-                                ?>
-
                                 <form enctype="multipart/form-data" method="POST" action="upload_dokumen.php">
-                                Cover : <input type="file" name="cover"><br>
-                                <br>
-                                <br>
-                                Lembar Pengesahan : <input type="file" name="pengesahan"><br>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">Upload Cover</label>
+                                        <input type="file" name="cover" class="form-control-file" id="exampleFormControlFile1">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">Upload Lembar Pengesahan</label>
+                                        <input type="file" name="pengesahan" class="form-control-file" id="exampleFormControlFile1">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">Upload Daftar Isi, Abstrak, BAB I</label>
+                                        <input type="file" name="daftarisi" class="form-control-file" id="exampleFormControlFile1">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">Upload BAB II</label>
+                                        <input type="file" name="babii" class="form-control-file" id="exampleFormControlFile1">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">Upload BAB III</label>
+                                        <input type="file" name="babiii" class="form-control-file" id="exampleFormControlFile1">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">Upload BAB IV</label>
+                                        <input type="file" name="babiv" class="form-control-file" id="exampleFormControlFile1">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">Upload BAB V</label>
+                                        <input type="file" name="babv" class="form-control-file" id="exampleFormControlFile1">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">Upload Daftar Pustaka</label>
+                                        <input type="file" name="dapus" class="form-control-file" id="exampleFormControlFile1">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">Upload Halaman Belakang Lainnya</label>
+                                        <input type="file" name="halbelakang" class="form-control-file" id="exampleFormControlFile1">
+                                    </div>
+
+                                    
+
                                 
                                 <input type=submit value=Upload>
                                 </form>
